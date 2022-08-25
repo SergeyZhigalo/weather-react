@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import SearchForm from "./components/SearchForm";
+import Weather from "./components/Weather";
+import Loader from "./components/Loader";
+import { useWeather } from "./hooks/weather";
 
 function App() {
+  const {
+    APIKey,
+    data,
+    loader,
+    city,
+    fetchWeather,
+  } = useWeather()
+
+
+  useEffect(() => {
+    fetchWeather(city, APIKey)
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchForm
+        fetchWeather={fetchWeather}
+        APIKey={APIKey}
+      />
+      {loader && <Loader/>}
+      {!loader && <Weather data={data} />}
     </div>
   );
 }
