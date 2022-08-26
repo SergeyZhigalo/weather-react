@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export function useWeather() {
-  const APIKey = 'fef14fe7c45c48ecaa5a1c13feb4cf15'
+  const APIKey = undefined
   const [data, setData] = useState({})
   const [loader, setLoader] = useState(true)
   const [city, setCity] = useState(localStorage.getItem('weatherCity') || 'Big Sur')
